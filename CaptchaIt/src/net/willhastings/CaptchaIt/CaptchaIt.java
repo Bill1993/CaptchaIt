@@ -10,8 +10,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CaptchaIt extends JavaPlugin
 {
 	private static CaptchaIt plugin;
+	
 	public ChatListener chatListener = null;
 	public CommandListener commandListener = null;
+	public UserListener userListener = null;
+	
 	private Logger log = Logger.getLogger("Minecraft");
 	
 	public void onEnable()
@@ -23,6 +26,8 @@ public class CaptchaIt extends JavaPlugin
 		log.info("[CaptchaIt] Chat Listener has started!");
 		commandListener = new CommandListener(this);
 		log.info("[CaptchaIt] Command Listener has started!");
+		userListener = new UserListener(this);
+		log.info("[CaptchaIt] User Listener has started!");
 	}
 	
 	public void onDisable()
