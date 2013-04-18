@@ -1,0 +1,5 @@
+name: CaptchaIt
+main: net.willhastings.CaptchaIt.CaptchaIt
+version: 1.0.0
+author: bill1993
+softdepend: [Vault]
