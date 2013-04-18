@@ -1,10 +1,14 @@
 package net.willhastings.CaptchaIt;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import net.willhastings.CaptchaIt.Listeners.ChatListener;
 import net.willhastings.CaptchaIt.Listeners.CommandListener;
+import net.willhastings.CaptchaIt.Listeners.UserListener;
+import net.willhastings.CaptchaIt.util.User;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CaptchaIt extends JavaPlugin
@@ -16,6 +20,8 @@ public class CaptchaIt extends JavaPlugin
 	public UserListener userListener = null;
 	
 	private Logger log = Logger.getLogger("Minecraft");
+	
+	public static HashMap<Player, User> userMap = new HashMap<Player, User>();
 	
 	public void onEnable()
 	{
