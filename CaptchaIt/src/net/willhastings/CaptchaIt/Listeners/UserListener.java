@@ -1,9 +1,7 @@
 package net.willhastings.CaptchaIt.Listeners;
 
+import net.willhastings.CaptchaIt.CITFunction;
 import net.willhastings.CaptchaIt.CaptchaIt;
-import net.willhastings.CaptchaIt.util.User;
-
-import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,10 +19,9 @@ public class UserListener implements Listener
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
-		
-		if(!CaptchaIt.userMap.containsKey(player))
+		if(!CITFunction.userExists(player))
 		{
-			CaptchaIt.userMap.put(player, new User(RandomStringUtils.randomAlphanumeric(5)));
+			CITFunction.addUser(player);
 		}
 	}
 }

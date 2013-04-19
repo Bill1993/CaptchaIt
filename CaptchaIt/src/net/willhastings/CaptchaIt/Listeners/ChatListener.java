@@ -1,9 +1,10 @@
 package net.willhastings.CaptchaIt.Listeners;
 
+import net.willhastings.CaptchaIt.CITFunction;
 import net.willhastings.CaptchaIt.CaptchaIt;
+import net.willhastings.CaptchaIt.util.Config;
 import net.willhastings.CaptchaIt.util.User;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,24 +21,28 @@ public class ChatListener implements Listener
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerSendChat(AsyncPlayerChatEvent event)
 	{
-		if(event.isCancelled()) return;
+		if(event.isCancelled() || !Config.REQUIRED_CHAT) return;
 		
 		Player player = event.getPlayer();
-		User user = CaptchaIt.userMap.get(player);
+		if(!CITFunction.userExists(player)) CITFunction.addUser(player);
+		
+		User user = CITFunction.getUser(player);
 		
 		if(user.hasPassed()) return;
-		
-		String pMessage = event.getMessage();
-		
-		if(pMessage.equals(user.getCaptcha()))
-		{
-			player.sendMessage(ChatColor.GREEN + "Thank you for prooving your a humanoid!");
-			user.setPassed(true);
-		}
 		else
 		{
-			player.sendMessage(ChatColor.GREEN + "Please pass the human test. Enter the Captcha: " + ChatColor.GOLD + user.getCaptcha());
-			event.setCancelled(true);
+			String pMessage = event.getMessage();
+			if(user.getCaptcha().equals(pMessage))
+			{
+				user.setPassed(true);
+				CaptchaIt.messageHandler.getMessage("user.captcha.pass", true);
+				event.setCancelled(true);
+			}
+			else 
+			{
+				CaptchaIt.messageHandler.getFormatedMessage("uset.captcha.fail.chat", true, user.getCaptcha());
+				event.setCancelled(true);
+			}
 		}
 	}
 }

@@ -1,3 +1,7 @@
+# if randomGeneration is set to 'true' the plugin will either generate a random alphanumeric, or alphabetical string if alphanumeric is set to 'true' or 'false'
+# the length is the length of the randomly generated alphanumeric, or alphabetical string.
+# if randomGeneration is set to 'false' the plugin will select a random word from the wordList for the captcha test
+# You have to set either chat to 'true', commands to 'true', or both to 'true'. if they are both set to 'false', the plugin will disable itself.
 captcha:
   randomGeneration: true
   alphanumric: true
@@ -7,8 +11,6 @@ captcha:
   - Joe
   - Jack
   - Humanoid
-  maxAttempts: 4
-message:
-  firstJoin: 'Please enter the captcha to chat, and use commands: {0}'
-  captchaCompleted: Thank you. You have proved your a humanoid!
-  captchaFailed: 'You must enter the captcha code before using chat and commands: {0}'
+captha-required:
+  chat: true
+  commands: true
