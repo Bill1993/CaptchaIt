@@ -2,11 +2,15 @@ package net.willhastings.CaptchaIt;
 
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.permission.Permission;
 import net.willhastings.CaptchaIt.Listeners.ChatListener;
 import net.willhastings.CaptchaIt.Listeners.CommandListener;
 import net.willhastings.CaptchaIt.Listeners.UserListener;
 import net.willhastings.CaptchaIt.util.Config;
 import net.willhastings.CaptchaIt.util.MessageHandler;
+
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CaptchaIt extends JavaPlugin
@@ -19,9 +23,10 @@ public class CaptchaIt extends JavaPlugin
 	public CommandListener commandListener = null;
 	public UserListener userListener = null;
 	
-	private Logger log = Logger.getLogger("Minecraft");
+	private static Logger log = Logger.getLogger("Minecraft");
 	
 	public static MessageHandler messageHandler;
+	public static Permission permission = null;
 	
 	public void onEnable()
 	{
@@ -36,6 +41,10 @@ public class CaptchaIt extends JavaPlugin
 		}
 		log.info("[CaptchaIt] Configuration file has successfully loaded!");
 		messageHandler = new MessageHandler(this);
+		log.info("[CaptchaIt] Messages file has succesfully loaded!");
+		
+		if(this.getServer().getPluginManager().getPlugin("Vault") != null) setupPermissions();
+		else log.info("[CaptchaIt] is using Bukkit perm instead of [Vault]");
 		
 		log.info("[CaptchaIt] Is loading listeners...");
 		chatListener = new ChatListener(this);
@@ -61,4 +70,15 @@ public class CaptchaIt extends JavaPlugin
 	{
 		return plugin;
 	}
+	
+	public static boolean setupPermissions()
+    {
+        RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        if (permissionProvider != null) 
+        {
+            permission = permissionProvider.getProvider();
+            log.info("[CaptchaIt] is using [Vault] for permissions!");
+        }
+        return (permission != null);
+    }
 }

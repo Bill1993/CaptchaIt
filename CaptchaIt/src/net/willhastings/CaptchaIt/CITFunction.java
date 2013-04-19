@@ -38,10 +38,21 @@ public class CITFunction
 			else CaptchaIt.getPlugin().getLogger().severe("[CaptchaIt] '" + randWordObj.toString() + "' is not an instance of a string, therefor can not be used!");
 			user.put(player.getName(), new User(randWord));
 		}
+		if(hasPermission(player, "captchait.skip"))
+		{
+			user.get(player.getName()).setPassed(true);
+		}
 	}
 	
 	public static int randomGenINT(int min, int max) 
 	{
 		return (int) Math.round((min + Math.random() * (max - min)));
+	}
+	
+	public static boolean hasPermission(Player player, String perm)
+	{
+		if (player.isOp()) return true;	
+		else if(CaptchaIt.permission != null) return (CaptchaIt.permission.has(player, perm) || CaptchaIt.permission.has(player, "*"));
+		else return (player.hasPermission(perm) || player.hasPermission("*"));
 	}
 }
