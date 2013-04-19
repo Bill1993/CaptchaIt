@@ -21,19 +21,15 @@ public class CommandListener implements Listener
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event) 
 	{
-		System.out.println("1");
 		if(event.isCancelled() || !Config.REQUIRED_CMD) return;
 		
 		Player player = event.getPlayer();
 		if(!CITFunction.userExists(player)) CITFunction.addUser(player);
 		
-		User user = CITFunction.getUser(player);
-		System.out.println("2");
-		
+		User user = CITFunction.getUser(player);		
 		if(user.hasPassed()) return;
 		else
 		{
-			System.out.println("3");
 			player.sendMessage(CaptchaIt.messageHandler.getFormatedMessage("user.captcha.fail.command", true, user.getCaptcha()));
 			event.setCancelled(true);
 		}

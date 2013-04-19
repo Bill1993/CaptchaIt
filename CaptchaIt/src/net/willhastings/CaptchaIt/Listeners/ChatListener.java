@@ -21,7 +21,7 @@ public class ChatListener implements Listener
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerSendChat(AsyncPlayerChatEvent event)
 	{
-		if(event.isCancelled() || !Config.REQUIRED_CHAT) return;
+		if(event.isCancelled()) return;
 		
 		Player player = event.getPlayer();
 		if(!CITFunction.userExists(player)) CITFunction.addUser(player);
@@ -40,8 +40,11 @@ public class ChatListener implements Listener
 			}
 			else 
 			{
-				player.sendMessage(CaptchaIt.messageHandler.getFormatedMessage("user.captcha.fail.chat", true, user.getCaptcha()));
-				event.setCancelled(true);
+				if(Config.REQUIRED_CHAT)
+				{
+					player.sendMessage(CaptchaIt.messageHandler.getFormatedMessage("user.captcha.fail.chat", true, user.getCaptcha()));
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
