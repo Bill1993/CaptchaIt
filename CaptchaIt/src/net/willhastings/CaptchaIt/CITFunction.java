@@ -10,24 +10,24 @@ import org.bukkit.entity.Player;
 
 public class CITFunction 
 {
-	private static HashMap<Player, User> user = new HashMap<Player, User>();
+	private static HashMap<String, User> user = new HashMap<String, User>();
 	
 	public static boolean userExists(Player player)
 	{
-		return user.containsKey(player);
+		return user.containsKey(player.getName());
 	}
 	
 	public static User getUser(Player player)
 	{
-		return user.get(player);
+		return user.get(player.getName());
 	}
 	
 	public static void addUser(Player player)
 	{
 		if(Config.GENERATE_RANDOM)
 		{
-			if(Config.ALPHANUMERIC) user.put(player, new User(RandomStringUtils.randomAlphanumeric(Config.CAPTCHA_LENGTH)));
-			else user.put(player, new User(RandomStringUtils.randomAlphabetic(Config.CAPTCHA_LENGTH)));
+			if(Config.ALPHANUMERIC) user.put(player.getName(), new User(RandomStringUtils.randomAlphanumeric(Config.CAPTCHA_LENGTH)));
+			else user.put(player.getName(), new User(RandomStringUtils.randomAlphabetic(Config.CAPTCHA_LENGTH)));
 		}
 		else
 		{
@@ -36,7 +36,7 @@ public class CITFunction
 			String randWord = null;
 			if(randWordObj instanceof String) randWord = (String) randWordObj;
 			else CaptchaIt.getPlugin().getLogger().severe("[CaptchaIt] '" + randWordObj.toString() + "' is not an instance of a string, therefor can not be used!");
-			user.put(player, new User(randWord));
+			user.put(player.getName(), new User(randWord));
 		}
 	}
 	

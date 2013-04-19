@@ -13,4 +13,4 @@ captcha:
   - Humanoid
 captha-required:
   chat: true
-  commands: true
+  command: true

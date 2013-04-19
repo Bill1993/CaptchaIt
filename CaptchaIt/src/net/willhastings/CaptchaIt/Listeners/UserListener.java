@@ -15,13 +15,14 @@ public class UserListener implements Listener
 		captchaIt.getServer().getPluginManager().registerEvents(this, captchaIt);
 	}
 	
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
 		if(!CITFunction.userExists(player))
 		{
 			CITFunction.addUser(player);
+			player.sendMessage(CaptchaIt.messageHandler.getFormatedMessage("user.first.join", true, CITFunction.getUser(player).getCaptcha()));
 		}
 	}
 }

@@ -35,12 +35,12 @@ public class ChatListener implements Listener
 			if(user.getCaptcha().equals(pMessage))
 			{
 				user.setPassed(true);
-				CaptchaIt.messageHandler.getMessage("user.captcha.pass", true);
+				player.sendMessage(CaptchaIt.messageHandler.getMessage("user.captcha.pass", true));
 				event.setCancelled(true);
 			}
 			else 
 			{
-				CaptchaIt.messageHandler.getFormatedMessage("uset.captcha.fail.chat", true, user.getCaptcha());
+				player.sendMessage(CaptchaIt.messageHandler.getFormatedMessage("user.captcha.fail.chat", true, user.getCaptcha()));
 				event.setCancelled(true);
 			}
 		}
