@@ -1,0 +1,14 @@
+captcha:
+  randomGeneration: true
+  alphanumric: true
+  length: 6
+  wordList:
+  - Bob
+  - Joe
+  - Jack
+  - Humanoid
+  maxAttempts: 4
+message:
+  firstJoin: 'Please enter the captcha to chat, and use commands: {0}'
+  captchaCompleted: Thank you. You have proved your a humanoid!
+  captchaFailed: 'You must enter the captcha code before using chat and commands: {0}'

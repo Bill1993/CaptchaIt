@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import net.willhastings.CaptchaIt.Listeners.ChatListener;
 import net.willhastings.CaptchaIt.Listeners.CommandListener;
 import net.willhastings.CaptchaIt.Listeners.UserListener;
+import net.willhastings.CaptchaIt.util.Config;
 import net.willhastings.CaptchaIt.util.User;
 
 import org.bukkit.entity.Player;
@@ -26,6 +27,8 @@ public class CaptchaIt extends JavaPlugin
 	public void onEnable()
 	{
 		plugin = this;
+		
+		Config.loadConfig(this);
 		
 		log.info("[CaptchaIt] Is loading listeners...");
 		chatListener = new ChatListener(this);
