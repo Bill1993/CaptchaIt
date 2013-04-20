@@ -1,5 +1,6 @@
 package net.willhastings.CaptchaIt;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.permission.Permission;
@@ -12,6 +13,7 @@ import net.willhastings.CaptchaIt.util.MessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.MetricsLite;
 
 public class CaptchaIt extends JavaPlugin
 {
@@ -53,6 +55,17 @@ public class CaptchaIt extends JavaPlugin
 		log.info("[CaptchaIt] Command Listener has started!");
 		userListener = new UserListener(this);
 		log.info("[CaptchaIt] User Listener has started!");
+		
+		log.info("[CaptchaIt] Attempting to send statis to MCStats!");
+		try 
+		{
+		    MetricsLite metrics = new MetricsLite(this);
+		    metrics.start();
+		} 
+		catch (IOException e) 
+		{
+			log.info("[CaptchaIt] Failed to send stats to MCStats, stats will not be send >:C " + e.toString());
+		}
 	}
 	
 	public void onDisable()
