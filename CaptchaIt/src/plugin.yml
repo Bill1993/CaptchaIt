@@ -1,5 +1,5 @@
-name: CaptchaIt
+name: ${name}
 main: net.willhastings.CaptchaIt.CaptchaIt
-version: 1.0.0
+version: ${version}
 author: bill1993
 softdepend: [Vault]
