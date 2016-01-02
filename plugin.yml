@@ -1,0 +1,5 @@
+name: CaptchaIt
+main: me.CaptchaIt
+version: 2.0
+author: [bill1993, DUFC_Liam]
+softdepend: [Vault]
